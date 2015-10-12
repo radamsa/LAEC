@@ -10,6 +10,14 @@ namespace LAEC
     {
         static void Main(string[] args)
         {
+            var scanner = new Scanner();
+            var parser = new Parser(scanner);
+
+            scanner.SetSource("S0 <- false;", 0);
+            if (parser.Parse())
+                Console.WriteLine("Success.");
+
+            Console.WriteLine(parser.ParseTree);
         }
     }
 }
