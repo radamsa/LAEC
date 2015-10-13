@@ -1,0 +1,54 @@
+[Start] (
+	{
+		Start <- false;
+		S0;
+		T(S0, S1) <- true
+	} | R);
+
+
+//qS0 = [Start] (
+//	{
+//		Start <- false;
+//		S0;
+//		T(S0, S1) <- true
+//	} | R);
+//qS1 = [T(S0, S1) | T(S3, S1) | T(S2, S1)] (
+//	{
+//		T(S0, S1) <- false; T(S4, S1) <- false; T(S4, S1) <- false;
+//		S1;
+//		[Q(S1)](
+//			T(S1, S2) <- true; D(S1, S2) <- true |
+//			T(S1, S6) <- true)
+//	} | R);
+//qS2 = [T(S1, S2) & D(S1, S2)] (
+//	{
+//		T(S1, S2) <- false; D(S1, S2) <- false;
+//		S2;
+//		T(S2, S3) <- true; D(S2, S3) <- true
+//	} | R);
+//qS3 = [T(S2, S3) & D(S2, S3)](
+//	{
+//		T(S2, S3) <- false; D(S2, S3) <- false;
+//		S3;
+//		[Q(S3)](
+//			T(S3, S4) <- true; D(S3, S4) <- true |
+//			T(S3, S1) <- true)
+//	} | R);
+//qS4 = [T(S3, S4) & D(S3, S4)] (
+//	{
+//		T(S3, S4) <- false; D(S3, S4) <- false;
+//		S4;
+//		T(S4, S5) <- true; D(S4, S5) <- true
+//	} | R);
+//qS5 = [T(S4, S5) & D(S4, S5)] (
+//	{
+//		T(S4, S5) <- false; D(S4, S5) <- false;
+//		S5;
+//		T(S5, S1) <- true
+//	} | R);
+//qS6 = [T(S1, S6)] (
+//	{
+//		T(S1, S6) <- false;
+//		S5;
+//		Finish <- true
+//	} | R);

@@ -58,6 +58,9 @@
     <None Include="App.config" />
     <None Include="gram.y" />
     <None Include="scan.l" />
+    <None Include="test.lae">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

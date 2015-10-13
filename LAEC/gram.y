@@ -24,7 +24,7 @@
 %type  <boolean>	BoolConst
 
 %token <node>		Node
-%token <keyword>	TRANS DATA CONDITION TRUE FALSE
+%token <keyword>	TRANS DATA CONDITION TRUE FALSE START FINISH RETURN EMPTY NOTHING
 
 %start LAE
 
@@ -58,23 +58,56 @@ ExpressionList
 
 // Logic and algebraic expression
 Expression
-	:	Node '<' '-' BoolConst
-		{
-			$$ = $1 + "=" + $3 + ";";
-		}
-	| /*EMPTY*/
+	:	AlphaCond '(' AlphaBody ')'
+	|	/*EMPTY*/
 		{ $$ = null; }
+	;
+
+AlphaCond
+	:	'[' AlphaExpr ']'
+	;
+
+AlphaExpr
+	:	TransExpr
+	;
+
+TransExpr
+	:	START
+	|	FINISH
+	|	TRANS '(' Node ',' Node ')'
+	;
+
+AlphaBody
+	:	'{' ExecSequence '}' '|' PredefinedOper
+	;
+
+ExecSequence
+	:	SetExprList
+	|	SetExprList ';' Node
+	|	Node ';' SetExprList
+	|	SetExprList ';' Node ';' SetExprList
+	;
+
+SetExprList
+	:	SetExprList ';' SetExpr
+	|	SetExpr
+	;
+
+SetExpr
+	:	TransExpr '<' '-' BoolConst
+	;
+
+PredefinedOper
+	:	RETURN
+	|	EMPTY
+	|	NOTHING
 	;
 
 BoolConst
 	:	TRUE
-		{
-			$$ = true;
-		}
+		{ $$ = true; }
 	|	FALSE
-		{
-			$$ = false;
-		}
+		{ $$ = false; }
 	;
 
 %%
