@@ -21,30 +21,61 @@ identifier_start			[A-Za-z_]
 identifier_part				[A-Za-z_0-9]
 identifier					{identifier_start}{identifier_part}*
 
-self						[,()\[\].;\:\+\-\*\/\%\^\<\>\=\{\}\|]
+assign						<-
+
+self						[,()\[\].;\:\+\-\*\/\%\^\<\>\=\{\}\|\&]
 
 node						S{integer}
+lae_target					[mq]{node}
 
 %%
 
 {comment}					{ /* Игнорируем комментарий */ }
 
 // Ключевые слова
-CONDITION					{ return (int)Tokens.CONDITION; }
+START						{ return TokenInfo(Tokens.START); }
+FINISH						{ return TokenInfo(Tokens.FINISH); }
 DATA						{ return TokenInfo(Tokens.DATA); }
 D							{ return TokenInfo(Tokens.DATA); }
 TRANS						{ return TokenInfo(Tokens.TRANS); }
 T							{ return TokenInfo(Tokens.TRANS); }
-TRUE						{ return TokenInfo(Tokens.TRUE); }
-FALSE						{ return TokenInfo(Tokens.FALSE); }
-START						{ return TokenInfo(Tokens.START); }
-FINISH						{ return TokenInfo(Tokens.FINISH); }
-R							{ return TokenInfo(Tokens.RETURN); }
-E							{ return TokenInfo(Tokens.EMPTY); }
-N							{ return TokenInfo(Tokens.NOTHING); }
 
-{node}						{ Console.WriteLine(yytext); return TokenInfo(Tokens.Node); }
-{self}						{ Console.WriteLine(yytext[0]); return yytext[0]; }
+//CONDITION					{ return (int)Tokens.CONDITION; }
+Q							{ return (int)Tokens.CONDITION; }
+
+TRUE						{
+								yylval.boolean = true;
+								return TokenInfo(Tokens.TRUE);
+							}
+FALSE						{
+								yylval.boolean = false;
+								return TokenInfo(Tokens.FALSE);
+							}
+
+E							{
+								yylval.node = Node.Empty;
+								return TokenInfo(Tokens.NODE); //return TokenInfo(Tokens.EMPTY);
+							}
+N							{
+								yylval.node = Node.Nothing;
+								return TokenInfo(Tokens.NODE); //return TokenInfo(Tokens.NOTHING);
+							}
+R							{
+								yylval.node = Node.Return;
+								return TokenInfo(Tokens.NODE); //return TokenInfo(Tokens.RETURN);
+							}
+
+{assign}					{ return TokenInfo(Tokens.ASSIGN); }
+
+{node}						{
+								yylval.node = new Node(yytext);
+								return TokenInfo(Tokens.NODE);
+							}
+{lae_target}				{
+								yylval.node = new Node(yytext.Substring(1));
+								return TokenInfo(Tokens.LAE_TARGET);
+							}
+{self}						{ return yytext[0]; }
 
 <<EOF>>						{ return TokenInfo(Tokens.EOF); }
 
@@ -52,8 +83,6 @@ N							{ return TokenInfo(Tokens.NOTHING); }
 	private int TokenInfo(Tokens token)
 	{
 		yylloc = new LexLocation(tokLin, tokCol, tokELin, tokECol, tokPos, tokEPos);
-		Console.WriteLine(token); 
-
 		return (int)token;
 	}
 

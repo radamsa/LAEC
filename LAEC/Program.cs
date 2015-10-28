@@ -11,17 +11,22 @@ namespace LAEC
     {
         static void Main(string[] args)
         {
-            try {
+            try
+            {
                 var scanner = new Scanner();
                 var parser = new Parser(scanner);
 
-                scanner.SetSource("[Start] ({ Start <-false; S0; T(S0, S1) <-true } | R);", 0);
+                //scanner.SetSource("qS0 = [Start] ({ Start <-false; S0; T(S0, S1) <-true } | R);", 0);
+                scanner.SetSource(File.OpenRead("test.lae"));
                 if (parser.Parse())
+                {
                     Console.WriteLine("Success.");
+                    foreach (var item in parser.ParseTree)
+                        Console.WriteLine("stmt: {0}", item);
+                }
 
-                Console.WriteLine(parser.ParseTree);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
