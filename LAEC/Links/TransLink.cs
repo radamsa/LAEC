@@ -17,5 +17,22 @@ namespace LAEC
         {
             return "T(" + Source + ", " + Target + ")";
         }
+
+		public override String Compile()
+		{
+			return "T( \"" + Source + "\", \"" + Target + "\" )";
+		}
+
+		public override String Compile( bool State )
+		{
+			var s = String.Format(
+				"T( \"{0}\", \"{1}\", {2} )",
+				Source,
+				Target,
+				State.ToString().ToLower()
+			);
+
+			return s;
+		}
     }
 }

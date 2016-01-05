@@ -46,10 +46,28 @@ namespace LAEC
                     opSign = "|";
                     break;
                 default:
-                    throw new InvalidOperationException($"Неизвестный знак '{Op}' в выражении.");
+                    throw new InvalidOperationException( String.Format( "Неизвестный знак '{0}' в выражении.", Op ) );
             }
 
-            return $"{Left} {opSign} {Right}";
+            return String.Format( "{0} {1} {2}", Left, opSign, Right );
+        }
+
+		public override String Compile()
+        {
+            string opSign;
+            switch (Op)
+            {
+                case ExprOp.And:
+                    opSign = " && ";
+                    break;
+                case ExprOp.Or:
+                    opSign = " || ";
+                    break;
+                default:
+                    throw new InvalidOperationException( String.Format( "Неизвестный знак '{0}' в выражении.", Op ) );
+            }
+
+            return Left.Compile() + opSign + Right.Compile();
         }
     }
 }

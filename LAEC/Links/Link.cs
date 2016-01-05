@@ -41,7 +41,25 @@ namespace LAEC
                 return "Start";
             if (IsFinish)
                 return "Finish";
-            return $"<unknown link>({Source}, {Target})";
+            return String.Format( "<unknown link>({0}, {1})", Source, Target );
         }
+
+		public virtual String Compile()
+		{
+			if (IsStart)
+                return "Start";
+            if (IsFinish)
+                return "Finish";
+			return String.Format( "<unknown link>({0}, {1})", Source, Target );
+		}
+
+		public virtual String Compile( bool State )
+		{
+			if (IsStart)
+                return "Start = " + State.ToString().ToLower();
+            if (IsFinish)
+                return "Finish = " + State.ToString().ToLower();
+			return String.Format( "<unknown link>({0}, {1})", Source, Target );
+		}
     }
 }

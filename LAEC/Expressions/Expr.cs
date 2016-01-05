@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LAEC
 {
-    class Expr : Statement
+    abstract class Expr : Statement
     {
+		public abstract String Compile();
     }
 }
