@@ -25,7 +25,17 @@ namespace LAEC
         /// </returns>
         public override string ToString()
         {
-            return $"{Link}";
+            return String.Format( "{0}", Link );
         }
+
+		public override String Compile()
+		{
+			if ( Link.GetType() == typeof( DataLink ) )
+			{
+				return "( ( input = " + Link.Compile() + " ) != null )";
+			} else {
+				return Link.Compile();
+			}
+		}
     }
 }

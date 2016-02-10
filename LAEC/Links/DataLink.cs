@@ -25,5 +25,22 @@ namespace LAEC
         {
             return "D(" + Source + ", " + Target + ")";
         }
+
+		public override String Compile()
+		{
+			return "D( \"" + Source + "\", \"" + Target + "\" )";
+		}
+
+		public override String Compile( bool State )
+		{
+			var s = String.Format(
+				"D( \"{0}\", \"{1}\", {2} )",
+				Source,
+				Target,
+				State ? "output" : "null"
+			);
+			
+			return s;
+		}
     }
 }

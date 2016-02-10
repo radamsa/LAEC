@@ -28,7 +28,7 @@ namespace LAEC
         /// </returns>
         public override string ToString()
         {
-            return $"[{Condition}]({Iteration})";
+            return String.Format( "[{0}]({1})", Condition, Iteration );
         }
     }
 }

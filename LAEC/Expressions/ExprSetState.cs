@@ -21,5 +21,10 @@ namespace LAEC
         {
             return Link + " <- " + State;
         }
-    }
+
+		public override String Compile()
+		{
+			return Link.Compile( State );
+		}
+	}
 }

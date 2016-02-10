@@ -4,9 +4,9 @@ qS0 = [Start] (
 		S0;
 		T(S0, S1) <- true
 	} | R);
-qS1 = [T(S0, S1) | T(S3, S1) | T(S2, S1)] (
+qS1 = [T(S0, S1) | T(S3, S1) | T(S2, S1) | T(S5, S1)] (
 	{
-		T(S0, S1) <- false; T(S4, S1) <- false; T(S4, S1) <- false;
+		T(S0, S1) <- false; T(S4, S1) <- false; T(S4, S1) <- false; T(S5, S1) <- false;
 		S1;
 		[Q(S1)](
 			T(S1, S2) <- true; D(S1, S2) <- true |

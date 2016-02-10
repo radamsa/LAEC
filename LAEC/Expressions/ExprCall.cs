@@ -27,5 +27,10 @@ namespace LAEC
         {
             return Node.ToString();
         }
+
+		public override String Compile()
+		{
+			return "var result = Run( input, out output );";
+		}
     }
 }

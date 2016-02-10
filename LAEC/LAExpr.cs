@@ -25,7 +25,7 @@ namespace LAEC
         /// </returns>
         public override string ToString()
         {
-            return $"q{Target} = {Expression}";
+            return String.Format( "q{0} = {1}", Target, Expression );
         }
     }
 }
